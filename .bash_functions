@@ -1,3 +1,18 @@
+pumlit(){
+	echo "pUMLit is an plantuml extractor for source code."
+	echo "it recursively searches for files with //@puml <plantuml text>" 
+	echo "and writes it to a file with the name <filename>.ms.puml. These"
+	echo "files can then be rendered in a plantuml viewer (intelliJ etc)"
+	echo "The idea here is to bring documentation closer to code thus"
+	echo "promoting easier understanding of complex systems."
+	echo "Munaf Sheikh v1.0"
+	echo "munaf.sheikh@gmail.com | SuperMunaf"
+
+ 	find . -name "*.ms.puml" -type f -delete
+	grep -F -R -i '//@puml' * | awk '{ gsub("  ", ""); print $0 }' | awk -F ' |:' '{ fn=$1".ms.puml"; $1=$2=""; print $0 > fn }'
+
+}
+
 
 gitUpdateCommits(){
   export commitM=`git log | grep "fix" | head -n 1`
